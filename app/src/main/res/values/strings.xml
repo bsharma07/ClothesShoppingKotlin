@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Clothes Shopping</string>
+    <string name="title_activity_home">MainActivity</string>
+    <string name="Title">Product Details</string>
+    <string name="basket">basket</string>
+    <string name="buy_now">buy_now</string>
+    <string name="add_to_basket">Add to basket</string>
+    <string name="welcome_to_clothes_shopping">Welcome to Clothes Shopping!</string>
+    <string name="colour">Colour</string>
+    <string name="quantity">Quantity</string>
+    <string name="Buy">Buy Now</string>
+    <string name="add_basket">Add to Basket</string>
+
+
+</resources>
