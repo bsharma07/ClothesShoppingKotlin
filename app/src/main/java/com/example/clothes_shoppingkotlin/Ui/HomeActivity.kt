@@ -27,13 +27,14 @@ class HomeActivity : AppCompatActivity(), UserClickListener {
         viewModel!!.getmProducts().observe(
             this,
             Observer<List<ProductTable>> { productTables ->
-                if (productTables.size == 0) {
-                    viewModel!!.apiCallback
+                if (productTables.isEmpty()) {
+                    viewModel!!.apiCallback()
                 }
-                val myAdapter = Adapter(
-                    this@HomeActivity,
-                    productTables as List<ProductTable>
-                ) { product: ProductTable? -> this@HomeActivity.onUserClicked(product) }
+                val myAdapter = Adapter(this@HomeActivity, productTables, object : UserClickListener {
+                    override fun onUserClicked(product: ProductTable?) {
+                        this@HomeActivity.onUserClicked(product)
+                    }
+                })
                 mRecyclerView!!.adapter = myAdapter
                 mRecyclerView!!.layoutManager =
                     StaggeredGridLayoutManager(

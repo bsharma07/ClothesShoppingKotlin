@@ -11,13 +11,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
     private var retrofit: Retrofit? = null
     fun getClient(mContext: Context?): Retrofit? {
-        val builder = OkHttpClient().newBuilder()
+        /*val builder = OkHttpClient().newBuilder()
             .addNetworkInterceptor(CacheIntercept())
-            .addInterceptor(mContext?.let { ForcedCache(it) }).build()
+            .addInterceptor(mContext?.let { ForcedCache(it) }).build()*/
         if (retrofit == null) {
             retrofit = Retrofit.Builder()
                 .baseUrl(Constant.Base_Url)
-                .client(builder)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
         }

@@ -13,10 +13,10 @@ interface BasketDao {
     fun updateBasket(vararg baskets: Basket?)
 
     @get:Query("SELECT * from basket ORDER BY id ASC")
-    val allBasket: LiveData<List<Any?>?>?
+    val allBasket: LiveData<List<Basket>>
 
     @Query("SELECT * FROM basket WHERE id LIKE :title LIMIT 1")
-    fun getBasketById(title: String?): LiveData<Basket?>?
+    fun getBasketById(title: String?): LiveData<Basket>
 
     @Query("DELETE FROM basket")
     fun deleteAll()
