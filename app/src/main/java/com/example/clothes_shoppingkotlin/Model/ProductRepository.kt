@@ -13,11 +13,16 @@ class ProductRepository(application: Application?) {
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
     val allProduct: LiveData<List<ProductTable>>
+    val allBasket: LiveData<List<Basket>>
 
     // You must call this on a non-UI thread or your app will throw an exception. Room ensures
     // that you're not doing any long running operations on the main thread, blocking the UI.
     fun insert(product: ProductTable?) {
         ProductDatabase.databaseWriteExecutor.execute { mProductDao.insert(product) }
+    }
+
+    fun insertBasket(basket: Basket?) {
+        ProductDatabase.databaseWriteExecutor.execute { mBasketDao.insert(basket) }
     }
 
     // Note that in order to unit test the WordRepository, you have to remove the Application
@@ -29,5 +34,6 @@ class ProductRepository(application: Application?) {
         mBasketDao = db!!.basketDao!!
         mProductDao = db.productDao!!
         allProduct = mProductDao.allPrice
+        allBasket = mBasketDao.allBasket
     }
 }

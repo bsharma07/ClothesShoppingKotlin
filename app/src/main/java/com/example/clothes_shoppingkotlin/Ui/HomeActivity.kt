@@ -57,7 +57,8 @@ class HomeActivity : AppCompatActivity(), UserClickListener {
     override fun onUserClicked(product: ProductTable?) {
         val mIntent = Intent(this, DetailActivity::class.java)
         val mBundle = Bundle()
-        mBundle.putString("title", product!!.title)
+        mBundle.putString("category",product!!.category)
+        mBundle.putString("title", product.title)
         mBundle.putDouble("price", product.price!!)
         mBundle.putString("desc", product.description)
         mBundle.putString("image", product.image)

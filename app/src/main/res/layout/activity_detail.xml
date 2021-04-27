@@ -109,6 +109,7 @@
                     android:text="@string/add_basket"
                     app:strokeColor="@color/blue_500"
                     app:strokeWidth="1dp"
+                    android:onClick="addBasket"
                     app:icon="@drawable/ic_shopping_basket"
                     android:layout_marginBottom="15dp"
                     style="@style/Widget.MaterialComponents.Button.TextButton"

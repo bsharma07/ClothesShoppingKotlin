@@ -10,24 +10,30 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.clothes_shoppingkotlin.R
+import com.example.clothes_shoppingkotlin.ViewModel.ProductViewModel
 
 class DetailActivity : AppCompatActivity() {
     var plus: ImageView? = null
     var minus: ImageView? = null
-    var ratingBar: RatingBar? = null
     var quantitySize: TextView? = null
     var cover: ImageView? = null
+    private lateinit var mBundle:Bundle
+    private var viewModel: ProductViewModel? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
-        val mBundle = intent.extras
+
+        viewModel = ProductViewModel(application, this)
+        mBundle = intent.extras!!
         val mTextView = findViewById<TextView>(R.id.title_song)
-        mTextView.text = mBundle!!.getString("title")
+        mTextView.text = mBundle.getString("title")
         val textView = findViewById<TextView>(R.id.description)
         textView.text = mBundle.getString("desc")
         val cost = findViewById<TextView>(R.id.price)
@@ -57,10 +63,7 @@ class DetailActivity : AppCompatActivity() {
                 quantitySize!!.text = "" + number[0]
             }
         }
-        ratingBar = findViewById<View>(R.id.ratingbar) as RatingBar
-        val stars = ratingBar!!.progressDrawable as LayerDrawable
-        stars.getDrawable(2)
-            .setColorFilter(resources.getColor(R.color.yellow), PorterDuff.Mode.SRC_ATOP)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -70,5 +73,13 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return super.onOptionsItemSelected(item)
+    }
+
+    fun addBasket(view:View){
+        viewModel?.addToBasket(mBundle.getString("title"),mBundle.getString("desc"),
+                mBundle.getDouble("price"),mBundle.getString("category"),mBundle.getString("image"),
+                quantitySize!!.text.toString().toInt())
+
+        Toast.makeText(this,"Item added to basket",Toast.LENGTH_LONG).show()
     }
 }

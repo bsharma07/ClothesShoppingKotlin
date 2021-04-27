@@ -5,6 +5,7 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.example.clothes_shoppingkotlin.Model.Basket
 import com.example.clothes_shoppingkotlin.Model.Product
 import com.example.clothes_shoppingkotlin.Model.ProductRepository
 import com.example.clothes_shoppingkotlin.Model.ProductTable
@@ -19,10 +20,15 @@ class ProductViewModel(application: Application?, context: Context) : ViewModel(
 
     private val mRepository: ProductRepository = ProductRepository(application)
     private val mProducts: LiveData<List<ProductTable>> = mRepository.allProduct
+    private val mBaskets: LiveData<List<Basket>> = mRepository.allBasket
     private val mContext by lazy { context }
 
     fun getmProducts(): LiveData<List<ProductTable>> {
         return mProducts
+    }
+
+    fun getmBaskets(): LiveData<List<Basket>> {
+        return mBaskets
     }
 
         //here we'll define what we want to do if the network call is unsuccessful
@@ -63,4 +69,8 @@ class ProductViewModel(application: Application?, context: Context) : ViewModel(
             })
     }
 
+    fun addToBasket(title:String?, desc:String?, price:Double?, category:String?, image:String?, quantity:Int?){
+        val basket = Basket(null,title,price,desc,category,image,quantity)
+        mRepository.insertBasket(basket)
+    }
 }
