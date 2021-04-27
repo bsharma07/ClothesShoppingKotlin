@@ -10,6 +10,7 @@
     <string name="quantity">Quantity</string>
     <string name="Buy">Buy Now</string>
     <string name="add_basket">Add to Basket</string>
+    <string name="proceed_to_checkout">Proceed to checkout</string>
 
 
 </resources>
