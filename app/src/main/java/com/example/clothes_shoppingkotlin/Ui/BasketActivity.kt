@@ -2,58 +2,55 @@ package com.example.clothes_shoppingkotlin.Ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.clothes_shoppingkotlin.Adapter.BasketAdapter
+import com.example.clothes_shoppingkotlin.Model.Basket
+import com.example.clothes_shoppingkotlin.Model.ProductTable
 import com.example.clothes_shoppingkotlin.R
 import com.example.clothes_shoppingkotlin.ViewModel.ProductViewModel
 
-class BasketActivity : AppCompatActivity() {
-
-    var plus: ImageView? = null
-    var minus: ImageView? = null
-    var quantitySize: TextView? = null
-    var cover: ImageView? = null
-    private lateinit var mBundle:Bundle
+class BasketActivity : AppCompatActivity(), UserClickListener {
     private var viewModel: ProductViewModel? = null
+    private var mRecyclerView: RecyclerView? = null
+    private var mTotalPrice: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_basket)
         viewModel = ProductViewModel(application, this)
-        mBundle = intent.extras!!
-        val mTextView = findViewById<TextView>(R.id.title_song)
-        mTextView.text = mBundle.getString("title")
-        val textView = findViewById<TextView>(R.id.description)
-        textView.text = mBundle.getString("desc")
-        val cost = findViewById<TextView>(R.id.price)
-        cost.text = "£" + mBundle.getDouble("price")
-        cover = findViewById(R.id.cover)
-        Glide.with(this).load(mBundle.getString("image")).dontAnimate().into(cover!!)
-        plus = findViewById<View>(R.id.plus) as ImageView
-        minus = findViewById<View>(R.id.minus) as ImageView
-        quantitySize = findViewById<View>(R.id.sizeno) as TextView
-        val number = intArrayOf(1)
-        quantitySize!!.text = "" + number[0]
-        minus!!.setOnClickListener {
-            if (number[0] == 0) {
-                quantitySize!!.text = "" + number[0]
-            }
-            if (number[0] > 0) {
-                number[0] = number[0] - 1
-                quantitySize!!.text = "" + number[0]
-            }
-        }
-        plus!!.setOnClickListener {
-            if (number[0] == 9) {
-                quantitySize!!.text = "" + number[0]
-            }
-            if (number[0] < 9) {
-                number[0] = number[0] + 1
-                quantitySize!!.text = "" + number[0]
-            }
-        }
+        mRecyclerView = findViewById(R.id.user_recyclerview)
+        mTotalPrice = findViewById(R.id.totalPrice)
+
+        viewModel!!.getmBaskets().observe(
+                this,
+                Observer<List<Basket>> { basket ->
+                    if (basket.isNotEmpty()) {
+                        val myAdapter = BasketAdapter(this@BasketActivity, basket, object : UserClickListener {
+                            override fun onUserClicked(product: ProductTable?) {
+                                TODO("Not yet implemented")
+                            }
+
+                            override fun onCloseClicked(basket: Basket?) {
+                                this@BasketActivity.onCloseClicked(basket)
+                            }
+                        })
+                        mRecyclerView!!.adapter = myAdapter
+                        mRecyclerView!!.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+
+                        mTotalPrice!!.text = "£"+myAdapter.getTotalPrice().toString()
+                    }
+                })
 
     }
+
+    override fun onUserClicked(product: ProductTable?) {
+        TODO("Not yet implemented")
     }
+
+    override fun onCloseClicked(product: Basket?) {
+        TODO("Not yet implemented")
+    }
+}

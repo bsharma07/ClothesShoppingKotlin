@@ -1,6 +1,7 @@
 package com.example.clothes_shoppingkotlin.Ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.PorterDuff
 import android.graphics.drawable.LayerDrawable
 import android.os.Bundle
@@ -72,6 +73,10 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if(id == R.id.action_notifications){
+            startActivity(Intent(this,BasketActivity::class.java))
+        }
         return super.onOptionsItemSelected(item)
     }
 

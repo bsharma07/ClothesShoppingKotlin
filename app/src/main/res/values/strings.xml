@@ -11,6 +11,9 @@
     <string name="Buy">Buy Now</string>
     <string name="add_basket">Add to Basket</string>
     <string name="proceed_to_checkout">Proceed to checkout</string>
+    <string name="remove_img">remove_img</string>
+    <string name="checkout">Checkout</string>
+    <string name="total">Total</string>
 
 
 </resources>

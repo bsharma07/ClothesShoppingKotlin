@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.clothes_shoppingkotlin.Adapter.Adapter
+import com.example.clothes_shoppingkotlin.Model.Basket
 import com.example.clothes_shoppingkotlin.Model.ProductTable
 import com.example.clothes_shoppingkotlin.R
 import com.example.clothes_shoppingkotlin.ViewModel.ProductViewModel
@@ -34,6 +35,10 @@ class HomeActivity : AppCompatActivity(), UserClickListener {
                     override fun onUserClicked(product: ProductTable?) {
                         this@HomeActivity.onUserClicked(product)
                     }
+
+                    override fun onCloseClicked(product: Basket?) {
+                        TODO("Not yet implemented")
+                    }
                 })
                 mRecyclerView!!.adapter = myAdapter
                 mRecyclerView!!.layoutManager =
@@ -51,6 +56,10 @@ class HomeActivity : AppCompatActivity(), UserClickListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if(id == R.id.action_notifications){
+            startActivity(Intent(this,BasketActivity::class.java))
+        }
         return super.onOptionsItemSelected(item)
     }
 
@@ -64,5 +73,9 @@ class HomeActivity : AppCompatActivity(), UserClickListener {
         mBundle.putString("image", product.image)
         mIntent.putExtras(mBundle)
         startActivity(mIntent)
+    }
+
+    override fun onCloseClicked(product: Basket?) {
+        TODO("Not yet implemented")
     }
 }
