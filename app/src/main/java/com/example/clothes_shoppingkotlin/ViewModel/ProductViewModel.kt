@@ -73,4 +73,8 @@ class ProductViewModel(application: Application?, context: Context) : ViewModel(
         val basket = Basket(null,title,price,desc,category,image,quantity)
         mRepository.insertBasket(basket)
     }
+
+    fun deleteBasketItem(uid:Int){
+        mRepository.deleteBasket(uid)
+    }
 }

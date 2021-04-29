@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.clothes_shoppingkotlin.R
+import com.example.clothes_shoppingkotlin.Utils.toast
 import com.example.clothes_shoppingkotlin.ViewModel.ProductViewModel
 
 class DetailActivity : AppCompatActivity() {
@@ -85,6 +86,6 @@ class DetailActivity : AppCompatActivity() {
                 mBundle.getDouble("price"),mBundle.getString("category"),mBundle.getString("image"),
                 quantitySize!!.text.toString().toInt())
 
-        Toast.makeText(this,"Item added to basket",Toast.LENGTH_LONG).show()
+        toast("Item added to basket")
     }
 }

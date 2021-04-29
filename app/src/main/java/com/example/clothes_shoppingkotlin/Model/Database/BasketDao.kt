@@ -18,6 +18,6 @@ interface BasketDao {
     @Query("SELECT * FROM basket WHERE id LIKE :title LIMIT 1")
     fun getBasketById(title: String?): LiveData<Basket>
 
-    @Query("DELETE FROM basket")
-    fun deleteAll()
+    @Query("DELETE FROM basket WHERE id = :uid")
+    fun deleteAll(uid:Int)
 }
